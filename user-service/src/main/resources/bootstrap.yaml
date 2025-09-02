@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: user-service
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      server-addr: 192.168.80.129:8848
+      #      username: nacos
+      #      password: nacos
+      discovery:
+        #        namespace: public
+        group: DEFAULT_GROUP
+        cluster-name: HZ
+        ephemeral: true
+        timeout: 15000
+        heart-beat-timeout: 15000
+      config:
+        file-extension: yaml
+        #        namespace: public
+        group: DEFAULT_GROUP
+        timeout: 5000
+        refresh-enabled: true
+        shared-configs:
+          - dataId: shared-jdbc.yaml # 共享mybatis配置
+          - dataId: shared-log.yaml # 共享日志配置
+          - dataId: shared-swagger.yaml # 共享日志配置
+#          - dataId: cart-service.yaml
+          - dataId: shared-seata.yaml # 共享seata配置
+          - dataId: user-service-jwt

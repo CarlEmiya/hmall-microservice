@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: cart-service
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      server-addr: 192.168.80.129:8848
+#      username: nacos
+#      password: nacos
+      discovery:
+#        namespace: public
+        group: DEFAULT_GROUP
+        cluster-name: HZ
+        ephemeral: true
+        timeout: 15000
+        heart-beat-timeout: 15000
+      config:
+        file-extension: yaml
+#        namespace: public
+        group: DEFAULT_GROUP
+        timeout: 5000
+        refresh-enabled: true
+        shared-configs:
+          - dataId: shared-jdbc.yaml # 共享mybatis配置
+          - dataId: shared-log.yaml # 共享日志配置
+          - dataId: shared-swagger.yaml # 共享日志配置
+          - dataId: cart-service.yaml
+            refresh: true # 动态刷新
+          - dataId: shared-seata.yaml # 共享seata配置
+    # 添加 Seata 配置
+    alibaba:
+      seata:
+        application-id: ${spring.application.name}  # 直接复用服务名
+        tx-service-group: hmall  # 与 Nacos 中 seata 的 tx-service-group 保持一致
+#
+#spring:
+#  application:
+#    name: cart-service # 服务名称
+#  profiles:
+#    active: dev
+#  cloud:
+#    nacos:
+#      server-addr: 192.168.80.129 # nacos地址
+#      config:
+#        file-extension: yaml # 文件后缀名
+#        shared-configs: # 共享配置
+#          - dataId: shared-jdbc.yaml # 共享mybatis配置
+#          - dataId: shared-log.yaml # 共享日志配置
+#          - dataId: shared-swagger.yaml # 共享日志配置
+#          - dataId: cart-service.yaml

@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: pay-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: 192.168.80.129:8848
+      config:
+        file-extension: yaml
+        shared-configs:
+          - dataId: shared-jdbc.yaml
+          - dataId: shared-log.yaml
+          - dataId: shared-swagger.yaml
+          - dataId: shared-seata.yaml
+      discovery:
+        cluster-name: HZ
+        namespace: 
+        group: DEFAULT_GROUP
+        ephemeral: true
