@@ -1,0 +1,182 @@
+23:30:35:616 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:30:35:616 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:30:35:633 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:30:35:636 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:30:35:636 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:30:35:641 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:30:53:274 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (category = ? AND status = ?)
+23:30:53:274 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 手机(String), 1(Integer)
+23:30:53:304 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:30:53:305 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (category = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:30:53:305 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 手机(String), 1(Integer), 40(Long), 20(Long)
+23:30:53:358 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:09:913 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:31:09:913 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:31:09:926 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:09:927 DEBUG 22600 --- [nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:09:927 DEBUG 22600 --- [nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:31:09:930 DEBUG 22600 --- [nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:10:985 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ?)
+23:31:10:986 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 尤妮佳(String), 1(Integer)
+23:31:11:128 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:11:950 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?)
+23:31:11:950 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 尤妮佳(String), 1(Integer), 90000(Integer), 159900(Integer)
+23:31:12:076 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:13:336 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ? AND price BETWEEN ? AND ?)
+23:31:13:336 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer), 90000(Integer), 159900(Integer)
+23:31:13:439 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:13:442 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:13:443 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 90000(Integer), 159900(Integer), 40(Long), 20(Long)
+23:31:13:452 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:14:286 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:31:14:286 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:31:14:303 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:14:304 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:14:304 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:31:14:306 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:15:549 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ?)
+23:31:15:550 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 希捷(String), 1(Integer)
+23:31:15:651 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:15:653 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:15:654 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 希捷(String), 1(Integer), 40(Long), 20(Long)
+23:31:15:830 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:16:156 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?)
+23:31:16:156 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 希捷(String), 1(Integer), 0(Integer), 10000(Integer)
+23:31:16:250 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:17:136 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ? AND price BETWEEN ? AND ?)
+23:31:17:136 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer), 0(Integer), 10000(Integer)
+23:31:17:231 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:17:233 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:17:233 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 0(Integer), 10000(Integer), 40(Long), 20(Long)
+23:31:17:236 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:17:785 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:31:17:785 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:31:17:802 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:17:803 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:17:803 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:31:17:805 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:19:146 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ?)
+23:31:19:146 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 小米(String), 1(Integer)
+23:31:19:248 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:19:249 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:19:249 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 小米(String), 1(Integer), 40(Long), 20(Long)
+23:31:19:266 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:19:885 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?)
+23:31:19:885 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 小米(String), 1(Integer), 10000(Integer), 29900(Integer)
+23:31:20:038 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:20:039 DEBUG 22600 --- [nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:20:039 DEBUG 22600 --- [nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 小米(String), 1(Integer), 10000(Integer), 29900(Integer), 40(Long), 20(Long)
+23:31:20:088 DEBUG 22600 --- [nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:21:607 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ?)
+23:31:21:608 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 小米(String), 1(Integer)
+23:31:21:733 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:21:735 DEBUG 22600 --- [nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:21:736 DEBUG 22600 --- [nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 小米(String), 1(Integer), 40(Long), 20(Long)
+23:31:21:745 DEBUG 22600 --- [nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:22:650 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?)
+23:31:22:650 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 小米(String), 1(Integer), 30000(Integer), 59900(Integer)
+23:31:22:818 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:22:820 DEBUG 22600 --- [io-8081-exec-10] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:22:820 DEBUG 22600 --- [io-8081-exec-10] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 小米(String), 1(Integer), 30000(Integer), 59900(Integer), 40(Long), 20(Long)
+23:31:22:902 DEBUG 22600 --- [io-8081-exec-10] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:22:975 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?)
+23:31:22:975 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 小米(String), 1(Integer), 30000(Integer), 59900(Integer)
+23:31:23:133 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:23:136 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:23:136 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 小米(String), 1(Integer), 30000(Integer), 59900(Integer), 40(Long), 20(Long)
+23:31:23:182 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:24:311 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ?)
+23:31:24:312 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 小米(String), 1(Integer)
+23:31:24:423 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:24:424 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:24:425 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 小米(String), 1(Integer), 40(Long), 20(Long)
+23:31:24:440 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:24:904 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?)
+23:31:24:905 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 小米(String), 1(Integer), 60000(Integer), 89900(Integer)
+23:31:25:030 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:25:033 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:25:033 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 小米(String), 1(Integer), 60000(Integer), 89900(Integer), 40(Long), 20(Long)
+23:31:25:082 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:25:728 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ?)
+23:31:25:728 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 小米(String), 1(Integer)
+23:31:25:867 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:25:869 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:25:869 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 小米(String), 1(Integer), 40(Long), 20(Long)
+23:31:25:884 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:31:26:818 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:31:26:819 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:31:26:841 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:31:26:843 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:31:26:843 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:31:26:848 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+
+
+23:28:29:490 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (category = ? AND status = ?)
+23:28:29:490 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 休闲鞋(String), 1(Integer)
+23:28:29:545 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:29:545 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (category = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:29:546 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 休闲鞋(String), 1(Integer), 40(Long), 20(Long)
+23:28:29:553 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:34:961 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:28:34:961 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:28:34:980 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:34:982 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:34:982 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:28:34:984 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:37:688 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:28:37:689 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:28:37:702 DEBUG 22600 --- [nio-8081-exec-9] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:37:703 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:37:703 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:28:37:705 DEBUG 22600 --- [nio-8081-exec-9] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:39:812 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:28:39:812 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:28:39:838 DEBUG 22600 --- [nio-8081-exec-8] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:39:839 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:39:839 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:28:39:841 DEBUG 22600 --- [nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:41:449 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ?)
+23:28:41:449 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 希捷(String), 1(Integer)
+23:28:41:547 DEBUG 22600 --- [nio-8081-exec-2] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:41:548 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (brand = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:41:548 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 希捷(String), 1(Integer), 40(Long), 20(Long)
+23:28:41:723 DEBUG 22600 --- [nio-8081-exec-2] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:42:713 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (brand = ? AND status = ? AND price BETWEEN ? AND ?)
+23:28:42:713 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 希捷(String), 1(Integer), 30000(Integer), 59900(Integer)
+23:28:42:871 DEBUG 22600 --- [nio-8081-exec-3] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:44:489 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ? AND price BETWEEN ? AND ?)
+23:28:44:489 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer), 30000(Integer), 59900(Integer)
+23:28:44:706 DEBUG 22600 --- [nio-8081-exec-6] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:44:708 DEBUG 22600 --- [nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:44:708 DEBUG 22600 --- [nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 30000(Integer), 59900(Integer), 40(Long), 20(Long)
+23:28:44:711 DEBUG 22600 --- [nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:45:591 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:28:45:591 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:28:45:611 DEBUG 22600 --- [io-8081-exec-10] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:45:612 DEBUG 22600 --- [io-8081-exec-10] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:45:612 DEBUG 22600 --- [io-8081-exec-10] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:28:45:615 DEBUG 22600 --- [io-8081-exec-10] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:46:843 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (category = ? AND status = ?)
+23:28:46:844 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 真皮包(String), 1(Integer)
+23:28:46:878 DEBUG 22600 --- [nio-8081-exec-7] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:46:879 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (category = ? AND status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:46:879 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 真皮包(String), 1(Integer), 40(Long), 20(Long)
+23:28:46:916 DEBUG 22600 --- [nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:47:765 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (category = ? AND status = ? AND price BETWEEN ? AND ?)
+23:28:47:766 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 真皮包(String), 1(Integer), 0(Integer), 10000(Integer)
+23:28:47:800 DEBUG 22600 --- [nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:47:802 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (category = ? AND status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:47:802 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 真皮包(String), 1(Integer), 0(Integer), 10000(Integer), 40(Long), 20(Long)
+23:28:47:840 DEBUG 22600 --- [nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:50:033 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ? AND price BETWEEN ? AND ?)
+23:28:50:034 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer), 0(Integer), 10000(Integer)
+23:28:50:188 DEBUG 22600 --- [nio-8081-exec-1] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:50:188 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ? AND price BETWEEN ? AND ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:50:189 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 0(Integer), 10000(Integer), 40(Long), 20(Long)
+23:28:50:196 DEBUG 22600 --- [nio-8081-exec-1] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20
+23:28:50:837 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item WHERE (status = ?)
+23:28:50:837 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 1(Integer)
+23:28:50:855 DEBUG 22600 --- [nio-8081-exec-5] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+23:28:50:856 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item WHERE (status = ?) ORDER BY update_time DESC LIMIT ?,?
+23:28:50:856 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 1(Integer), 40(Long), 20(Long)
+23:28:50:858 DEBUG 22600 --- [nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 20

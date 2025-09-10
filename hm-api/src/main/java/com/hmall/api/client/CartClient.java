@@ -1,6 +1,6 @@
 package com.hmall.api.client;
 
-import com.hmall.api.client.fallback.ItemClientFallback;
+import com.hmall.api.client.fallback.CartClientFallback;
 import com.hmall.api.config.DefaultFeignConfig;
 import com.hmall.api.domain.dto.CartFormDTO;
 import com.hmall.api.domain.po.Cart;
@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
-@FeignClient(value = "cart-service", configuration = DefaultFeignConfig.class, fallbackFactory = ItemClientFallback.class)
+@FeignClient(value = "cart-service", configuration = DefaultFeignConfig.class, fallbackFactory = CartClientFallback.class)
 public interface CartClient {
 
     /**
@@ -58,4 +58,8 @@ public interface CartClient {
     @ApiImplicitParam(name = "ids", value = "购物车条目id集合")
     @DeleteMapping("/carts")
     void deleteCartItemByIds(@RequestParam("ids") Collection<Long> ids);
+
+    @ApiOperation("根据用Id和商品Ids删除购物车中的商品")
+    @DeleteMapping("/{userId}/items")
+    public Boolean deleteCartItemByIdsAndUserId(@PathVariable("userId") Long userId, @RequestParam("itemIds") List<Long> itemIds);
 }

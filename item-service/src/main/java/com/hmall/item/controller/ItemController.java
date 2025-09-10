@@ -13,6 +13,7 @@ import com.hmall.item.service.IItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 public class ItemController {
 
     private final IItemService itemService;
+    private final RabbitTemplate rabbitTemplate;
 
     @ApiOperation("分页查询商品")
     @GetMapping("/page")
@@ -50,7 +52,10 @@ public class ItemController {
     @PostMapping
     public void saveItem(@RequestBody ItemDTO item) {
         // 新增
-        itemService.save(BeanUtils.copyBean(item, Item.class));
+        Item savedItem = BeanUtils.copyBean(item, Item.class);
+        itemService.save(savedItem);
+        // 发送MQ消息通知搜索服务同步数据
+        rabbitTemplate.convertAndSend("item.topic", "item.insert", savedItem.getId());
     }
 
     @ApiOperation("更新商品状态")
@@ -60,6 +65,8 @@ public class ItemController {
         item.setId(id);
         item.setStatus(status);
         itemService.updateById(item);
+        // 发送MQ消息通知搜索服务同步数据
+        rabbitTemplate.convertAndSend("item.topic", "item.update", id);
     }
 
     @ApiOperation("更新商品")
@@ -69,17 +76,36 @@ public class ItemController {
         item.setStatus(null);
         // 更新
         itemService.updateById(BeanUtils.copyBean(item, Item.class));
+        // 发送MQ消息通知搜索服务同步数据
+        rabbitTemplate.convertAndSend("item.topic", "item.update", item.getId());
     }
 
     @ApiOperation("根据id删除商品")
     @DeleteMapping("{id}")
     public void deleteItemById(@PathVariable("id") Long id) {
         itemService.removeById(id);
+        
+        // 发送MQ消息通知搜索服务
+        System.out.println("[ItemController] === 商品删除成功，发送MQ消息 ===");
+        System.out.println("  - 商品ID: " + id);
+        
+        try {
+            rabbitTemplate.convertAndSend("item.topic", "item.delete", id);
+            System.out.println("[ItemController] ✅ MQ消息发送成功 - item.delete");
+        } catch (Exception e) {
+            System.out.println("[ItemController] ❌ MQ消息发送失败: " + e.getMessage());
+        }
     }
 
     @ApiOperation("批量扣减库存")
     @PutMapping("/stock/deduct")
     public void deductStock(@RequestBody List<OrderDetailDTO> items){
         itemService.deductStock(items);
+    }
+
+    //增加库存，void addStock(List<OrderDetailDTO> detailDTOS);
+    @PostMapping("/stock/add")
+    public void addStock(@RequestBody List<OrderDetailDTO> detailDTOS){
+        itemService.addStock(detailDTOS);
     }
 }

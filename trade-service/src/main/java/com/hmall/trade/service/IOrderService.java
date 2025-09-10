@@ -17,5 +17,7 @@ public interface IOrderService extends IService<Order> {
 
     Long createOrder(OrderFormDTO orderFormDTO);
 
-    void markOrderPaySuccess(Long orderId);
+    Boolean markOrderPaySuccess(Long orderId);
+
+    Boolean cancelOrder(Long orderId);
 }

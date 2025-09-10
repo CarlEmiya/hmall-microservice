@@ -7,8 +7,8 @@ import com.hmall.api.config.DefaultFeignConfig;
 import com.hmall.api.domain.dto.ItemDTO;
 import com.hmall.api.domain.dto.OrderDetailDTO;
 import com.hmall.api.domain.query.ItemPageQuery;
+
 import com.hmall.common.domain.PageDTO;
-import com.hmall.common.domain.PageQuery;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +30,16 @@ public interface ItemClient {
     @GetMapping("/search/list")
     PageDTO<ItemDTO> search(ItemPageQuery query);
 
+    @PostMapping("/items/stock/add")
+    void addStock(@RequestBody List<OrderDetailDTO> detailDTOS);
+
+    @ApiOperation("根据id查询商品")
+    @GetMapping("/items/{id}")
+    ItemDTO queryItemById(@PathVariable("id") Long id);
+
 //    @ApiOperation("分页查询商品")
 //    @GetMapping("/items/page")
 //    PageDTO<ItemDTO> queryItemByPage(PageQuery query);
-//
-//    @ApiOperation("根据id查询商品")
-//    @GetMapping("/items/{id}")
-//    ItemDTO queryItemById(@PathVariable("id") Long id);
 //
 //    @ApiOperation("新增商品")
 //    @PostMapping("/items")

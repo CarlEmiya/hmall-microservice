@@ -91,6 +91,13 @@
         </dependency>
 <!--        引入lambook的依赖-->
 
+
+        <!--消息发送-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>

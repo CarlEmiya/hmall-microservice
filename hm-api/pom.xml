@@ -18,6 +18,13 @@
 
     <dependencies>
 
+
+        <!--消息发送-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
 <!--        com.baomidou.mybatisplus.annotation的包-->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -52,12 +59,6 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>com.heima</groupId>
-            <artifactId>hm-common</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

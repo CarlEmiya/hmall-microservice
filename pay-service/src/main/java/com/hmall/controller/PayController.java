@@ -1,9 +1,12 @@
 package com.hmall.controller;
 
+import com.hmall.api.domain.dto.PayOrderDTO;
 import com.hmall.common.exception.BizIllegalException;
-import com.hmall.domain.dto.PayApplyDTO;
-import com.hmall.domain.dto.PayOrderFormDTO;
+import com.hmall.api.domain.dto.PayApplyDTO;
+import com.hmall.api.domain.dto.PayOrderFormDTO;
+import com.hmall.common.utils.BeanUtils;
 import com.hmall.domain.enums.PayType;
+import com.hmall.domain.po.PayOrder;
 import com.hmall.service.IPayOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -34,7 +37,15 @@ public class PayController {
     @PostMapping("{id}")
     public void tryPayOrderByBalance(@PathVariable("id") Long id, @RequestBody PayOrderFormDTO payOrderFormDTO){
         payOrderFormDTO.setId(id);
-//        payOrderService.tryPayOrderByBalance(payOrderFormDTO);
+        payOrderService.tryPayOrderByBalance(payOrderFormDTO);
+        System.out.println("余额支付成功");
         // 余额支付暂时不支持，直接返回成功
+    }
+
+    @ApiOperation("根据id查询支付单")
+    @GetMapping("/biz/{id}")
+    public PayOrderDTO queryPayOrderByBizOrderNo(@PathVariable("id") Long id){
+        PayOrder payOrder = payOrderService.lambdaQuery().eq(PayOrder::getBizOrderNo, id).one();
+        return BeanUtils.copyBean(payOrder, PayOrderDTO.class);
     }
 }

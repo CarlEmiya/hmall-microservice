@@ -5,16 +5,21 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmall.api.client.UserClient;
 import com.hmall.api.client.TradeClient;
+import com.hmall.api.domain.po.Order;
+import com.hmall.api.domain.vo.OrderVO;
 import com.hmall.common.exception.BizIllegalException;
 import com.hmall.common.utils.BeanUtils;
 import com.hmall.common.utils.UserContext;
-import com.hmall.domain.dto.PayApplyDTO;
-import com.hmall.domain.dto.PayOrderFormDTO;
+import com.hmall.api.domain.dto.PayApplyDTO;
+import com.hmall.api.domain.dto.PayOrderFormDTO;
 import com.hmall.domain.po.PayOrder;
 import com.hmall.domain.enums.PayStatus;
 import com.hmall.mapper.PayOrderMapper;
 import com.hmall.service.IPayOrderService;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import com.hmall.common.utils.RabbitMqHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +33,13 @@ import java.time.LocalDateTime;
  * @author 虎哥
  * @since 2023-05-16
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> implements IPayOrderService {
 
     private final UserClient userClient;
-
+    private final RabbitMqHelper rabbitMqHelper;
     private final TradeClient tradeClient;
 
     @Override
@@ -45,12 +51,14 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
     }
 
     @Override
-    @Transactional
+    @GlobalTransactional(name = "pay-service", rollbackFor = Exception.class)
     public void tryPayOrderByBalance(PayOrderFormDTO payOrderFormDTO) {
         // 1.查询支付单
         PayOrder po = getById(payOrderFormDTO.getId());
-        // 2.判断状态
-        if(!PayStatus.WAIT_BUYER_PAY.equalsValue(po.getStatus())){
+        // 2.判断状态,支付单的状态必须是未支付，且订单bizOrderNo来的order的状态必须是未支付
+        OrderVO order = tradeClient.queryOrderById(po.getBizOrderNo());
+
+        if(!PayStatus.WAIT_BUYER_PAY.equalsValue(po.getStatus()) || order.getStatus() != 1){
             // 订单不是未支付，状态异常
             throw new BizIllegalException("交易已支付或关闭！");
         }
@@ -59,12 +67,23 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
         // 4.修改支付单状态
         boolean success = markPayOrderSuccess(payOrderFormDTO.getId(), LocalDateTime.now());
         if (!success) {
-            throw new BizIllegalException("交易已支付或关闭！");
+            throw new BizIllegalException("支付id：" + payOrderFormDTO.getId() + ",交易已支付或关闭！");
         }
-        // 5.修改订单状态
-        Boolean reuslt = markPayOrderSuccess(po.getId(), LocalDateTime.now());
-        if (!reuslt) {
-            throw new BizIllegalException("交易已支付或关闭！");
+        // 5.修改订单状态 - 使用带确认机制的消息发送
+        try {
+            System.out.println("\n=== [支付服务] 支付成功，准备发送订单状态更新消息 ===");
+            System.out.println("[支付服务] 支付单ID: " + po.getId());
+            System.out.println("[支付服务] 业务订单号: " + po.getBizOrderNo());
+            System.out.println("[支付服务] 支付金额: " + po.getAmount() + "分");
+            System.out.println("[支付服务] 支付用户ID: " + po.getBizUserId());
+            System.out.println("[支付服务] 即将发送消息到 pay.direct 交换机，路由键: pay.success");
+            log.info("支付成功，发送订单状态更新消息，订单号: {}", po.getBizOrderNo());
+            rabbitMqHelper.sendMessageWithConfirm("pay.direct", "pay.success", po.getBizOrderNo(), 3);
+            System.out.println("[支付服务] 订单状态更新消息发送完成\n");
+        } catch (Exception e) {
+            System.out.println("[支付服务] ❌ 发送订单状态更新消息失败: " + e.getMessage());
+            log.error("发送订单状态更新消息失败，订单号: {}", po.getBizOrderNo(), e);
+            throw new BizIllegalException("订单状态更新失败: " + e.getMessage());
         }
     }
 

@@ -3,6 +3,7 @@ package com.hmall.item.client;
 
 import com.hmall.item.domain.dto.ItemDTO;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.cloud.openfeign.FeignClient;
 import java.util.Collection;
@@ -13,4 +14,7 @@ public interface ItemClient {
 
     @GetMapping("/items")
     List<ItemDTO> queryItemByIds(@RequestParam("ids") Collection<Long> ids);
+    
+    @GetMapping("/items/{id}")
+    ItemDTO queryItemById(@PathVariable("id") Long id);
 }

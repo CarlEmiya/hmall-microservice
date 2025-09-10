@@ -13,6 +13,7 @@ spring:
           - dataId: shared-log.yaml
           - dataId: shared-swagger.yaml
           - dataId: shared-seata.yaml
+          - dataId: shared-mq.yaml # 共享mq配置
       discovery:
         cluster-name: HZ
         namespace: 

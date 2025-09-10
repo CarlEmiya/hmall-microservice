@@ -30,3 +30,4 @@ spring:
           - dataId: item-service.yaml
             refresh: true
           - dataId: shared-seata.yaml # 共享seata配置
+          - dataId: shared-mq.yaml # 共享mq配置

@@ -30,3 +30,4 @@ spring:
 #          - dataId: cart-service.yaml
           - dataId: shared-seata.yaml # 共享seata配置
           - dataId: user-service-jwt
+          - dataId: shared-mq.yaml # 共享mq配置

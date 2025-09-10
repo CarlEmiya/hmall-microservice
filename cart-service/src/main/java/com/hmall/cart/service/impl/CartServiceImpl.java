@@ -97,27 +97,6 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         return vos;
     }
 
-//    private void handleCartItems(List<CartVO> vos) {
-//        // 1.获取商品id TODO 处理商品信息
-//        Set<Long> itemIds = vos.stream().map(CartVO::getItemId).collect(Collectors.toSet());
-//        // 2.查询商品
-//        List<ItemDTO> items = itemService.queryItemByIds(itemIds);
-//        if (CollUtils.isEmpty(items)) {
-//            throw new BadRequestException("购物车中商品不存在！");
-//        }
-//        // 3.转为 id 到 item的map
-//        Map<Long, ItemDTO> itemMap = items.stream().collect(Collectors.toMap(ItemDTO::getId, Function.identity()));
-//        // 4.写入vo
-//        for (CartVO v : vos) {
-//            ItemDTO item = itemMap.get(v.getItemId());
-//            if (item == null) {
-//                continue;
-//            }
-//            v.setNewPrice(item.getPrice());
-//            v.setStatus(item.getStatus());
-//            v.setStock(item.getStock());
-//        }
-//    }
 
     private void handleCartItems(List<CartVO> vos) {
         // TODO 1.获取商品id
@@ -154,6 +133,18 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
                 .in(Cart::getItemId, itemIds);
         // 2.删除
         remove(queryWrapper);
+    }
+
+    //根据用户id和商品ids来删除购物车中的商品
+    public Boolean removeByItemIdsAndUserId(Long userId, Collection<Long> itemIds) {
+        // 1.构建删除条件，userId和itemId
+        QueryWrapper<Cart> queryWrapper = new QueryWrapper<Cart>();
+        queryWrapper.lambda()
+                .eq(Cart::getUserId, userId)
+                .in(Cart::getItemId, itemIds);
+        // 2.删除
+        Boolean result =remove(queryWrapper);
+        return result;
     }
 
     private void checkCartsFull(Long userId) {

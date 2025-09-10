@@ -36,6 +36,21 @@ public class ItemClientFallback implements FallbackFactory<ItemClient> {
             public PageDTO<ItemDTO> search(ItemPageQuery query) {
                 throw new BizIllegalException(cause);
             }
+
+            @Override
+            public void addStock(List<OrderDetailDTO> detailDTOS) {
+                // 库存增加业务需要触发事务回滚，查询失败，抛出异常
+                log.error("远程调用ItemClient#addStock方法出现异常，参数：{}", detailDTOS, cause);
+                throw new BizIllegalException(cause);
+            }
+
+            @Override
+            public ItemDTO queryItemById(Long id) {
+                log.error("远程调用ItemClient#queryItemById方法出现异常，参数：{}", id, cause);
+                return null;
+            }
+
+
         };
     }
 }

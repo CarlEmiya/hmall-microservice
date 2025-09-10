@@ -18,4 +18,8 @@ public interface ItemMapper extends BaseMapper<Item> {
 
     @Update("UPDATE item SET stock = stock - #{num} WHERE id = #{itemId}")
     void updateStock(OrderDetailDTO orderDetail);
+
+//    加库存
+    @Update("UPDATE item SET stock = stock + #{num} WHERE id = #{itemId}")
+    void addStock(OrderDetailDTO orderDetail);
 }

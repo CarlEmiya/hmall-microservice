@@ -34,7 +34,18 @@ public class OrderController {
     @ApiOperation("标记订单已支付")
     @ApiImplicitParam(name = "orderId", value = "订单id", paramType = "path")
     @PutMapping("/{orderId}")
-    public void markOrderPaySuccess(@PathVariable("orderId") Long orderId) {
-        orderService.markOrderPaySuccess(orderId);
+    public Boolean markOrderPaySuccess(@PathVariable("orderId") Long orderId) {
+        Boolean result = orderService.markOrderPaySuccess(orderId);
+        return result;
+    }
+
+    //取消订单
+    @ApiOperation("取消订单")
+    @ApiImplicitParam(name = "orderId", value = "订单id", paramType = "path")
+    @PutMapping("/cancel/{orderId}")
+    public Boolean cancelOrder(@PathVariable("orderId") Long orderId) {
+        Boolean result = orderService.cancelOrder(orderId);
+        System.out.println("取消订单 " + orderId + " 成功！");
+        return result;
     }
 }

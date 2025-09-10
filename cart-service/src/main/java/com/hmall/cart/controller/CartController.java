@@ -55,4 +55,11 @@ public class CartController {
     public void deleteCartItemByIds(@RequestParam("ids") List<Long> ids){
         cartService.removeByItemIds(ids);
     }
+
+//    根据用Id和商品Ids删除购物车中的商品
+    @ApiOperation("根据用Id和商品Ids删除购物车中的商品")
+    @DeleteMapping("/{userId}/items")
+    public Boolean deleteCartItemByIdsAndUserId(@PathVariable("userId") Long userId, @RequestParam("itemIds") List<Long> itemIds){
+        return cartService.removeByItemIdsAndUserId(userId,itemIds);
+    }
 }

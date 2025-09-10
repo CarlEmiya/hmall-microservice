@@ -1,6 +1,6 @@
 package com.hmall.api.client;
 
-import com.hmall.api.client.fallback.ItemClientFallback;
+import com.hmall.api.client.fallback.TradeClientFallback;
 import com.hmall.api.config.DefaultFeignConfig;
 import com.hmall.api.domain.dto.OrderFormDTO;
 import com.hmall.api.domain.dto.PayApplyDTO;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 
-@FeignClient(value = "trade-service", configuration = DefaultFeignConfig.class, fallbackFactory = ItemClientFallback.class)
+@FeignClient(value = "trade-service", configuration = DefaultFeignConfig.class, fallbackFactory = TradeClientFallback.class)
 public interface TradeClient {
 
     /**
@@ -40,17 +40,12 @@ public interface TradeClient {
     @ApiOperation("标记订单已支付")
     @ApiImplicitParam(name = "orderId", value = "订单id", paramType = "path")
     @PutMapping("/orders/{orderId}")
-    void markOrderPaySuccess(@PathVariable("orderId") Long orderId);
+    Boolean markOrderPaySuccess(@PathVariable("orderId") Long orderId);
 
-    /**
-     * 支付相关接口
-     */
-    @ApiOperation("生成支付单")
-    @PostMapping("/pay-orders")
-    String applyPayOrder(@RequestBody PayApplyDTO applyDTO);
 
-    @ApiOperation("尝试基于用户余额支付")
-    @ApiImplicitParam(value = "支付单id", name = "id")
-    @PostMapping("/pay-orders/{id}")
-    void tryPayOrderByBalance(@PathVariable("id") Long id, @RequestBody PayOrderFormDTO payOrderFormDTO);
+    @ApiOperation("取消订单")
+    @ApiImplicitParam(name = "orderId", value = "订单id", paramType = "path")
+    @PutMapping("/cancel/{orderId}")
+    public Boolean cancelOrder(@PathVariable("orderId") Long orderId);
+
 }

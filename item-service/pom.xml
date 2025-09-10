@@ -14,8 +14,22 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <elasticsearch.version>7.12.1</elasticsearch.version>
     </properties>
     <dependencies>
+
+
+<!--        es的RestHighLevelClient依赖-->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+        </dependency>
+
+        <!--消息发送-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
 
 
 <!--        导入spring-cloud-starter-alibaba-seata、spring-cloud-starter-alibaba-sentinel、hm-api、io.github.openfeign、feign-okhttp、spring-cloud-starter-openfeign、spring-cloud-starter-loadbalancer-->

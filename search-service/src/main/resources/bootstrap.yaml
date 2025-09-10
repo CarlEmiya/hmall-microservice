@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: search-service
+  profiles:
+    active: local
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      server-addr: 192.168.80.129:8848
+      #      username: nacos
+      #      password: nacos
+      discovery:
+        #        namespace: public
+        group: DEFAULT_GROUP
+        cluster-name: HZ
+        ephemeral: true
+        timeout: 15000
+        heart-beat-timeout: 15000
+      config:
+        file-extension: yaml
+        #        namespace: public
+        group: DEFAULT_GROUP
+        timeout: 5000
+        refresh-enabled: true
+        shared-configs:
+          - dataId: shared-log.yaml # 共享日志配置
+          - dataId: shared-swagger.yaml # 共享swagger配置
+          - dataId: shared-elasticsearch.yaml # 共享elasticsearch配置
+          - dataId: shared-mq.yaml # 共享mq配置
+          - dataId: search-service.yaml # search服务配置
+            refresh: true # 动态刷新
+          - dataId: shared-seata.yaml # 共享seata配置
+    # 添加 Seata 配置
+    alibaba:
+      seata:
+        application-id: ${spring.application.name}  # 直接复用服务名
+        tx-service-group: hmall  # 与 Nacos 中 seata 的 tx-service-group 保持一致

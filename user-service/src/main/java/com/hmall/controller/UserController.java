@@ -1,7 +1,9 @@
 package com.hmall.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hmall.api.domain.dto.LoginFormDTO;
+import com.hmall.api.domain.po.User;
 import com.hmall.api.domain.vo.UserLoginVO;
 import com.hmall.service.IUserService;
 import io.swagger.annotations.Api;
@@ -34,5 +36,18 @@ public class UserController {
     @PutMapping("/money/deduct")
     public void deductMoney(@RequestParam("pw") String pw,@RequestParam("amount") Integer amount){
         userService.deductMoney(pw, amount);
+    }
+
+    //根据id查用户
+    @ApiOperation("根据id查用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户id")
+    })
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable("id") Long id){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        User user = userService.getOne(queryWrapper);
+        return user;
     }
 }

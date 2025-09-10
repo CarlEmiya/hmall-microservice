@@ -29,3 +29,4 @@ spring:
           - dataId: shared-swagger.yaml # 共享日志配置
 #          - dataId: cart-service.yaml
           - dataId: shared-seata.yaml # 共享seata配置
+          - dataId: shared-mq.yaml # 共享mq配置
