@@ -26,4 +26,6 @@ public interface ICartService extends IService<Cart> {
     void removeByItemIds(Collection<Long> itemIds);
 
     Boolean removeByItemIdsAndUserId( Long userId,Collection<Long> itemIds);
+
+    boolean removeById(Long id);
 }

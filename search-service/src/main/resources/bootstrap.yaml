@@ -29,8 +29,9 @@ spring:
           - dataId: shared-elasticsearch.yaml # 共享elasticsearch配置
           - dataId: shared-mq.yaml # 共享mq配置
           - dataId: search-service.yaml # search服务配置
-            refresh: true # 动态刷新
           - dataId: shared-seata.yaml # 共享seata配置
+            refresh: true # 动态刷新          - dataId: shared-seata.yaml # 共享seata配置
+          - dataId: shared-redis-sentinel # 共享redis配置
     # 添加 Seata 配置
     alibaba:
       seata:

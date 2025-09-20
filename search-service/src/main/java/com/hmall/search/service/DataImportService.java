@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +43,7 @@ public class DataImportService {
             log.info("开始从数据库导入商品数据到Elasticsearch...");
             
             // 查询数据库中的商品数据
-            String sql = "SELECT id, name, price, category, brand, status FROM item WHERE status = 1";
+            String sql = "SELECT id, name, price, image,sold, comment_count, isAD,update_time, category, brand, status FROM item WHERE status = 1";
             log.info("执行SQL查询: {}", sql);
             List<Map<String, Object>> items = jdbcTemplate.queryForList(sql);
             log.info("查询结果数量: {}", items.size());
@@ -65,6 +67,9 @@ public class DataImportService {
             // 批量导入到Elasticsearch
             BulkRequest bulkRequest = new BulkRequest();
             
+            // 定义日期时间格式化器
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            
             for (Map<String, Object> item : items) {
                 ItemDoc itemDoc = new ItemDoc();
                 itemDoc.setId(((Number) item.get("id")).longValue());
@@ -73,13 +78,22 @@ public class DataImportService {
                 itemDoc.setCategory((String) item.get("category"));
                 itemDoc.setBrand((String) item.get("brand"));
                 itemDoc.setStatus(((Number) item.get("status")).intValue());
+                itemDoc.setImage((String) item.get("image"));
+                itemDoc.setSold(((Number) item.get("sold")).intValue());
+                itemDoc.setCommentCount(((Number) item.get("comment_count")).intValue());
+                itemDoc.setIsAD((Boolean) item.get("isAD"));
                 
-                // 设置默认值
-                itemDoc.setImage("");
-                itemDoc.setSold(0);
-                itemDoc.setCommentCount(0);
-                itemDoc.setIsAD(false);
-                itemDoc.setUpdateTime(java.time.LocalDateTime.now().toString());
+                // 正确处理LocalDateTime到String的转换
+                Object updateTimeObj = item.get("update_time");
+                if (updateTimeObj instanceof LocalDateTime) {
+                    itemDoc.setUpdateTime(((LocalDateTime) updateTimeObj).format(formatter));
+                } else if (updateTimeObj instanceof String) {
+                    itemDoc.setUpdateTime((String) updateTimeObj);
+                } else {
+                    // 如果是其他类型，转换为字符串
+                    itemDoc.setUpdateTime(updateTimeObj != null ? updateTimeObj.toString() : null);
+                }
+
                 
                 // 创建索引请求 - 使用Map方式构建JSON
                 Map<String, Object> jsonMap = new HashMap<>();
@@ -100,6 +114,9 @@ public class DataImportService {
                         .source(jsonMap);
                 
                 bulkRequest.add(indexRequest);
+
+                System.out.println("成功添加商品数据"+itemDoc.getId());
+
             }
             
             // 执行批量导入

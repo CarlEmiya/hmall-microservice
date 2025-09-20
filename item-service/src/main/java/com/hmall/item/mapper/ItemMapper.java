@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import com.hmall.item.domain.dto.OrderDetailDTO;
 import com.hmall.item.domain.po.Item;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,4 +25,10 @@ public interface ItemMapper extends BaseMapper<Item> {
 //    加库存
     @Update("UPDATE item SET stock = stock + #{num} WHERE id = #{itemId}")
     void addStock(OrderDetailDTO orderDetail);
+    
+    /**
+     * 查询所有商品ID，用于布隆过滤器初始化
+     */
+    @Select("SELECT id FROM item WHERE status = 1")
+    List<Long> selectAllIds();
 }

@@ -1,17 +1,21 @@
 package com.hmall.search.controller;
 
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.hmall.api.domain.dto.ItemDTO;
 
 import com.hmall.common.utils.BeanUtils;
-
+import com.hmall.common.utils.CacheUtils;
+import com.hmall.common.constants.CacheConstants;
+import com.hmall.common.utils.CacheKeyUtils;
 
 import com.hmall.common.utils.CollUtils;
 import com.hmall.search.domain.po.ItemDoc;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -48,10 +52,13 @@ import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 @RestController
 @RequestMapping("/search")
 @RequiredArgsConstructor
+@Slf4j
 public class SearchController {
 
     private final RestHighLevelClient client = new  RestHighLevelClient(RestClient.builder(
             HttpHost.create("http://192.168.80.129:9200")));
+    
+    private final CacheUtils cacheUtils;
 
     @ApiOperation("根据id搜索商品")
     @GetMapping("/{id}")
@@ -124,13 +131,53 @@ public class SearchController {
     @ApiOperation("商品搜索")
     @GetMapping("/list")
     public PageDTO<ItemDoc> search(ItemPageQuery query) throws IOException {
-        return searchItems(query);
+        log.info("商品搜索，参数: {}", query);
+        
+        // 构建缓存键
+        String cacheKey = CacheKeyUtils.buildSearchKey(query.getKey(), query.getCategory(), 
+                query.getBrand(), query.getMinPrice(), query.getMaxPrice(), 
+                query.getPageNo(), query.getPageSize(), query.getSortBy(), query.getIsAsc());
+        
+        // 使用Cache Aside模式查询（支持复杂泛型）
+        return cacheUtils.queryWithCacheAside(
+                cacheKey,
+                new TypeReference<PageDTO<ItemDoc>>() {},
+                () -> {
+                    try {
+                        log.info("从Elasticsearch查询搜索结果");
+                        return searchItems(query);
+                    } catch (IOException e) {
+                        log.error("搜索查询失败", e);
+                        throw new RuntimeException(e);
+                    }
+                },
+                CacheConstants.SEARCH_RESULT_TTL
+        );
     }
     
     @ApiOperation("搜索过滤条件聚合")
     @PostMapping("/filters")
     public Map<String, List<String>> getFilters(@RequestBody ItemPageQuery query) throws IOException {
-        return getSearchFilters(query);
+        log.info("获取搜索过滤条件，参数: {}", query);
+        
+        // 构建缓存键
+        String cacheKey = CacheKeyUtils.buildSearchFiltersKey(query.getKey(), query.getCategory(), query.getBrand());
+        
+        // 使用Cache Aside模式查询（支持复杂泛型）
+        return cacheUtils.queryWithCacheAside(
+                cacheKey,
+                new TypeReference<Map<String, List<String>>>() {},
+                () -> {
+                    try {
+                        log.info("从Elasticsearch查询搜索过滤条件");
+                        return getSearchFilters(query);
+                    } catch (IOException e) {
+                        log.error("搜索过滤条件查询失败", e);
+                        throw new RuntimeException(e);
+                    }
+                },
+                CacheConstants.SEARCH_FILTERS_TTL
+        );
     }
 
     @ApiOperation("高亮搜索测试")

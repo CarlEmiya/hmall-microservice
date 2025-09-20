@@ -9,9 +9,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 @MapperScan("com.hmall.item.mapper")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.hmall.item", "com.hmall.common"})
 @EnableDiscoveryClient
-public class ItemApplication {
+public class    ItemApplication {
     public static void main(String[] args) {
         SpringApplication.run(ItemApplication.class, args);
     }

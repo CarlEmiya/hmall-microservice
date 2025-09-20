@@ -65,3 +65,13 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# 忽略根目录下指定文件夹及其所有内容
+sky-take-out/**
+logs/**
+hm-nginx/**
+辅助/**
+简历辅助/**
+面试/**
+项目改造/**
+修改方案/**

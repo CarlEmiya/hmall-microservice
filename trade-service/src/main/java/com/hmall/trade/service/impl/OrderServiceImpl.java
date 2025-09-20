@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmall.api.client.CartClient;
 import com.hmall.api.client.ItemClient;
+import com.hmall.common.utils.CacheUtils;
+import com.hmall.common.constants.CacheConstants;
 
 
 import com.hmall.api.client.UserClient;
@@ -23,6 +25,7 @@ import com.hmall.trade.service.IOrderDetailService;
 import com.hmall.trade.service.IOrderService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import com.hmall.common.utils.RabbitMqHelper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
 
     private final ItemClient itemClient;
@@ -50,6 +54,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final UserClient userClient;
     private final RabbitMqHelper rabbitMqHelper;
     private final RabbitTemplate rabbitTemplate;
+    private final CacheUtils cacheUtils;
 
     @Override
     @GlobalTransactional
@@ -139,11 +144,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public Boolean markOrderPaySuccess(Long orderId) {
+        log.info("标记订单支付成功，订单ID: {}", orderId);
+        
         // 1.查询订单
         Order old = getById(orderId);
         // 2.判断订单状态
         if (old == null || old.getStatus() != 1) {
             // 订单不存在或者订单状态不是1，放弃处理
+            log.warn("订单不存在或状态不正确，订单ID: {}", orderId);
             return false;
         }
         // 3.尝试更新订单
@@ -151,17 +159,27 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setId(orderId);
         order.setStatus(2);
         order.setPayTime(LocalDateTime.now());
-        updateById(order);
-        return true;
+        boolean result = updateById(order);
+        
+        if (result) {
+            // 清除订单缓存
+            clearOrderCache(orderId);
+            log.info("订单支付成功，已清除缓存，订单ID: {}", orderId);
+        }
+        
+        return result;
     }
 
     @Override
     public Boolean cancelOrder(Long orderId) {
+        log.info("取消订单，订单ID: {}", orderId);
+        
         // 1.查询订单
         Order old = getById(orderId);
         // 乐观锁取消订单
         if (old == null || (old.getStatus() != 1 && old.getStatus() != 2)) {
             // 订单不存在或者订单状态不是1或2，放弃处理
+            log.warn("订单不存在或状态不正确，订单ID: {}", orderId);
             return null;
         }
         // 2.尝试更新订单
@@ -174,6 +192,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         Boolean res = updateById(order);
         if (res) {
+            // 清除订单缓存
+            clearOrderCache(orderId);
+            log.info("订单取消成功，已清除缓存，订单ID: {}", orderId);
+            
             // 3.回滚库存
             List<OrderDetail> details = detailService.list(new QueryWrapper<OrderDetail>().eq("order_id", orderId));
             List<OrderDetailDTO> detailDTOS = details.stream()
@@ -186,14 +208,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     .collect(Collectors.toList());
             try {
                 itemClient.addStock(detailDTOS);
+                log.info("库存回滚成功，订单ID: {}", orderId);
             } catch (Exception e) {
+                log.error("库存回滚失败，订单ID: {}", orderId, e);
                 throw new BizIllegalException("库存回滚失败！");
             }
             return true;
         }else{
+            log.warn("订单取消失败，订单ID: {}", orderId);
             return false;
         }
-
     }
 
     private List<OrderDetail> buildDetails(Long orderId, List<ItemDTO> items, Map<Long, Integer> numMap) {
@@ -210,5 +234,28 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             details.add(detail);
         }
         return details;
+    }
+
+    /**
+     * 重写updateById方法，添加缓存清理逻辑
+     */
+    @Override
+    public boolean updateById(Order entity) {
+        log.info("更新订单，订单ID: {}", entity.getId());
+        boolean result = super.updateById(entity);
+        if (result && entity.getId() != null) {
+            clearOrderCache(entity.getId());
+            log.info("订单更新成功，已清除缓存，订单ID: {}", entity.getId());
+        }
+        return result;
+    }
+
+    /**
+     * 清除订单缓存
+     */
+    private void clearOrderCache(Long orderId) {
+        String cacheKey = CacheConstants.ORDER_CACHE_KEY_PREFIX + orderId;
+        cacheUtils.deleteByKey(cacheKey);
+        log.debug("清除订单缓存，缓存键: {}", cacheKey);
     }
 }

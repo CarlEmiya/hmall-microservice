@@ -6,21 +6,26 @@ import com.hmall.api.domain.dto.LoginFormDTO;
 import com.hmall.api.domain.po.User;
 import com.hmall.api.domain.vo.UserLoginVO;
 import com.hmall.service.IUserService;
+import com.hmall.common.utils.CacheUtils;
+import com.hmall.common.utils.CacheConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "用户相关接口")
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final IUserService userService;
+    private final CacheUtils cacheUtils;
 
     @ApiOperation("用户登录接口")
     @PostMapping("login")
@@ -45,9 +50,22 @@ public class UserController {
     })
     @GetMapping("/{id}")
     public User getUserById(@PathVariable("id") Long id){
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", id);
-        User user = userService.getOne(queryWrapper);
-        return user;
+        log.info("查询用户信息，用户ID: {}", id);
+        
+        // 构建缓存键
+        String cacheKey = CacheConstants.USER_KEY_PREFIX + id;
+        
+        // 使用Cache Aside模式查询用户信息
+        return cacheUtils.queryWithCacheAside(
+            cacheKey,
+            User.class,
+            () -> {
+                log.info("从数据库查询用户信息，用户ID: {}", id);
+                QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("id", id);
+                return userService.getOne(queryWrapper);
+            },
+            CacheConstants.USER_TTL
+        );
     }
 }
