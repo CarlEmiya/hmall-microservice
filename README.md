@@ -330,12 +330,49 @@ a93d84a7969e   nacos/nacos-server:v2.2.0.1   0.0.0.0:8848->8848/tcp, 9848-9849->
 如果发现Elasticsearch中有hmall索引但搜索无结果，可能是数据为空，解决方案：
 
 1. **手动导入数据**
-   - 访问: `http://localhost:8082/search/list/import`
-   - 额外注意：如果报错`401`，先去登录一下，账号`jack`，密码`123`，数据库里的是加密的
-   - 或调用 <mcfile name="DataImportController.java" path="search-service\src\main\java\com\hmall\search\controller\DataImportController.java"></mcfile> 中的 `importItems()` 方法
+  - 访问: `http://localhost:8082/search/list/import`
+  - 额外注意：如果报错`401`，先去登录一下，账号`jack`，密码`123`，数据库里的是加密的
+  - 或调用 <mcfile name="DataImportController.java" path="search-service\src\main\java\com\hmall\search\controller\DataImportController.java"></mcfile> 中的 `importItems()` 方法
 
 2. **补充**
-   - 该Controller还提供了其他数据操作方法供调试使用
+  - 该Controller还提供了其他数据操作方法供调试使用
+
+### docker镜像拉不下来，网络超时
+
+1. **检查镜像地址** 
+  - 确保镜像地址正确，如 `registry.cn-hangzhou.aliyuncs.com/itheima/hmall-gateway:latest`
+2. **检查网络配置**
+  - 确保网络通畅，自己能上网。 
+3. **更换镜像源**
+  - 运行命令： `vim /etc/docker/daemon.json`
+  - 在文件中适当添加如下内容：
+  ```json
+  {
+  "registry-mirrors": [
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com",
+    "https://docker.fxxk.dedyn.io",
+    "https://docker.xuanyuan.me",
+    "https://docker.m.daocloud.io/",
+    "https://huecker.io/",
+    "https://dockerhub.timeweb.cloud",
+    "https://noohub.ru/",
+    "https://dockerproxy.com",
+    "https://docker.nju.edu.cn",
+    "https://xx4bwyg2.mirror.aliyuncs.com",
+    "http://f1361db2.m.daocloud.io",
+    "https://registry.docker-cn.com"
+  ]
+}
+```
+```bash
+# 重新加载配置
+sudo systemctl daemon-reload
+# 重启 Docker
+sudo systemctl restart docker
+```
+
 
 ### 学习资源
 
