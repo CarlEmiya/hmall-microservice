@@ -11,7 +11,7 @@
  Target Server Version : 80043
  File Encoding         : 65001
 
- Date: 20/09/2025 22:45:05
+ Date: 21/09/2025 22:36:40
 */
 
 SET NAMES utf8mb4;
@@ -33,8 +33,9 @@ CREATE TABLE `cart`  (
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `key_user_item_id`(`user_id` ASC, `item_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单详情表' ROW_FORMAT = COMPACT;
+  INDEX `key_user_item_id`(`user_id` ASC, `item_id` ASC) USING BTREE,
+  INDEX `idx_cart_user_cover`(`user_id` ASC, `item_id` ASC, `num` ASC, `price` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单详情表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of cart

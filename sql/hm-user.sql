@@ -11,7 +11,7 @@
  Target Server Version : 80043
  File Encoding         : 65001
 
- Date: 20/09/2025 22:45:52
+ Date: 21/09/2025 22:37:22
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,8 @@ CREATE TABLE `address`  (
   `is_default` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '是否是默认 1默认 0否',
   `notes` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `user_id`(`user_id` ASC) USING BTREE
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_address_user_default`(`user_id` ASC, `is_default` ASC, `contact` ASC, `mobile` ASC, `street` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
@@ -77,7 +78,10 @@ CREATE TABLE `user`  (
   `status` int NULL DEFAULT 1 COMMENT '使用状态（1正常 2冻结）',
   `balance` int NULL DEFAULT NULL COMMENT '账户余额',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `username`(`username` ASC) USING BTREE
+  UNIQUE INDEX `username`(`username` ASC) USING BTREE,
+  UNIQUE INDEX `idx_user_username_password_status`(`username` ASC, `password` ASC, `status` ASC) USING BTREE,
+  UNIQUE INDEX `idx_user_id_balance`(`id` ASC, `balance` ASC) USING BTREE,
+  UNIQUE INDEX `idx_user_phone`(`phone` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------

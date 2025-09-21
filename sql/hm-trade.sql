@@ -11,7 +11,7 @@
  Target Server Version : 80043
  File Encoding         : 65001
 
- Date: 20/09/2025 22:45:46
+ Date: 21/09/2025 22:37:14
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,8 @@ CREATE TABLE `order`  (
   `comment_time` timestamp NULL DEFAULT NULL COMMENT '评价时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `multi_key_status_time`(`status` ASC, `create_time` ASC) USING BTREE
+  INDEX `multi_key_status_time`(`status` ASC, `create_time` ASC) USING BTREE,
+  INDEX `idx_order_user_create`(`user_id` ASC, `create_time` ASC, `status` ASC, `total_fee` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin ROW_FORMAT = COMPACT;
 
 -- ----------------------------
@@ -132,7 +133,8 @@ CREATE TABLE `order_detail`  (
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `key_order_id`(`order_id` ASC) USING BTREE
+  INDEX `key_order_id`(`order_id` ASC) USING BTREE,
+  INDEX `idx_orderdetail_item_order`(`item_id` ASC, `order_id` ASC, `num` ASC, `price` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 120 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单详情表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------

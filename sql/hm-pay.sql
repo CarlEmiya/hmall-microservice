@@ -11,7 +11,7 @@
  Target Server Version : 80043
  File Encoding         : 65001
 
- Date: 20/09/2025 22:45:40
+ Date: 21/09/2025 22:37:05
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,9 @@ CREATE TABLE `pay_order`  (
   `is_delete` bit(1) NOT NULL DEFAULT b'0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `biz_order_no`(`biz_order_no` ASC) USING BTREE,
-  UNIQUE INDEX `pay_order_no`(`pay_order_no` ASC) USING BTREE
+  UNIQUE INDEX `pay_order_no`(`pay_order_no` ASC) USING BTREE,
+  INDEX `idx_payorder_user_create`(`id` ASC, `biz_user_id` ASC, `create_time` ASC, `status` ASC, `amount` ASC) USING BTREE,
+  INDEX `idx_payorder_status_overtime`(`status` ASC, `pay_over_time` ASC, `biz_user_id` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1969388039441051651 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '支付订单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
